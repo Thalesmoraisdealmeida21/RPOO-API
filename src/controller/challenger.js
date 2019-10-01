@@ -17,15 +17,16 @@ module.exports = () => {
                 data.group = "1"
             }
 
-            if (Challenger.create({
-                    name: data.name,
-                    level: data.level,
-                    group: data.group,
-                    userAdmin: data.user,
-                    experience: data.experience
-                })) {
-                res.status(200).end();
-            }
+            Challenger.create({
+                name: data.name,
+                level: data.level,
+                group: data.group,
+                userAdmin: data.user,
+                experience: data.experience
+            }).then((challenger) => {
+                res.status(200).json(challenger.id)
+            })
+
         },
 
         ToList: (req, res) => {

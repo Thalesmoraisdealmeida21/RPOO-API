@@ -42,14 +42,7 @@ module.exports = () => {
                         email: data.email,
                         level: 1
 
-                    })
-
-                    User.findOne({
-                        attributes: [
-                            [sequelize.fn('MAX', sequelize.col('id')), 'lastId']
-                        ]
                     }).then((user) => {
-                        lastID = user.dataValues.lastId + 1
                         skil.findAll().then((skilAll) => {
 
 
@@ -60,18 +53,19 @@ module.exports = () => {
 
                             arrayJson.forEach((newSkil) => {
                                 skils.create({
-                                    iduser: lastID,
+                                    iduser: user.id,
                                     idskil: newSkil.id,
                                     level: 1,
                                     experience: 0
                                 })
                             })
+
                         })
-
-
-                        res.status(201).json(true).end();
+                    }).then(() => {
+                        res.status(200).json(true)
                     })
                 }
+
             })
 
 
