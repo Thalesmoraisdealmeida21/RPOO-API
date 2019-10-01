@@ -1,0 +1,1 @@
+This project is designed to build APIs that support any application that wants to use an RPG system.
