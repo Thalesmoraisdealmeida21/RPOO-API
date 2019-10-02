@@ -8,7 +8,11 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            question: {
+            name: {
+                allowNull: false,
+                type: Sequelize.STRING
+            },
+            challenger: {
                 type: Sequelize.INTEGER,
                 references: {
                     model: "challengers",
@@ -28,4 +32,4 @@ module.exports = {
     down: (queryInterface, Sequelize) => {
         return queryInterface.dropTable('questions');
     }
-};
+}

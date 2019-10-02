@@ -18,10 +18,10 @@ module.exports = () => {
                 correct: req.body.correct
             }
 
-
+            console.log(data)
             question.create({
                 name: data.name,
-                challenger: data.id
+                challenger: Challenger
             }).then((question) => {
                 alternatives.create({
                     name: data.alternatives.one.name,
