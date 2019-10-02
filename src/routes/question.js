@@ -18,6 +18,10 @@ module.exports = (router) => {
 
     })
 
+    router.get("/questions/challenger/:id", (req, res) => {
+        Question.getQuestionsByChallenger(req, res);
+    })
+
     router.post("/questions/remove/:id", (req, res) => {
 
     })

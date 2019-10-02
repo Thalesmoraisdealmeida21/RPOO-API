@@ -81,6 +81,14 @@ module.exports = () => {
 
 
 
+        },
+
+        getQuestionsByChallenger: (req, res) => {
+            const id = req.params.id;
+
+            question.findAll({ where: { challenger: id } }).then((questions) => {
+                res.status(200).json(questions)
+            })
         }
     }
 }
