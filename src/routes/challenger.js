@@ -14,6 +14,10 @@ module.exports = (router) => {
         Challenger.ToList(req, res)
     })
 
+    router.get("/challengers/all", (req, res) => {
+        Challenger.ToListGlobal(req, res)
+    })
+
 
     router.delete("/challengers/delete/:id", (req, res) => {
         Challenger.deleteChallenger(req, res)

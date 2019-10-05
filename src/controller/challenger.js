@@ -2,6 +2,8 @@ const sequelize = require("./../../models/index").sequelize;
 const Challenger = sequelize.import("./../../models/challenger")
 const alternatives = sequelize.import("./../../models/alaternatives.js")
 const questions = sequelize.import("./../../models/questions.js")
+const Op = sequelize.Op;
+
 
 module.exports = () => {
     return {
@@ -15,19 +17,29 @@ module.exports = () => {
                 experience: req.body.experience
             }
 
-            if (data.group == "Nenhum") {
-                data.group = "1"
+            if (data.group == "") {
+                Challenger.create({
+                    name: data.name,
+                    level: data.level,
+                    group: null,
+                    userAdmin: data.user,
+                    experience: data.experience
+                }).then((challenger) => {
+                    res.status(200).json(challenger.id)
+                })
+            } else {
+                Challenger.create({
+                    name: data.name,
+                    level: data.level,
+                    group: data.group,
+                    userAdmin: data.user,
+                    experience: data.experience
+                }).then((challenger) => {
+                    res.status(200).json(challenger.id)
+                })
             }
 
-            Challenger.create({
-                name: data.name,
-                level: data.level,
-                group: data.group,
-                userAdmin: data.user,
-                experience: data.experience
-            }).then((challenger) => {
-                res.status(200).json(challenger.id)
-            })
+
 
         },
 
@@ -40,7 +52,7 @@ module.exports = () => {
         deleteChallenger: (req, res) => {
             const id = req.params.id
 
-            //delete alternativas
+
             Challenger.destroy({
                 where: {
                     id: id
@@ -50,12 +62,19 @@ module.exports = () => {
             res.status(200).end()
 
 
-            //deleta questões
 
+        },
 
-            //delete desafio
-
-
+        ToListGlobal: (req, res) => {
+            Challenger.findAll({
+                where: {
+                    group: {
+                        [Op.is]: null
+                    }
+                }
+            }).then((challengers) => {
+                res.status(200).json(challengers)
+            })
         }
     }
 }
