@@ -1,5 +1,7 @@
 const sequelize = require("./../../models/index").sequelize;
 const Challenger = sequelize.import("./../../models/challenger")
+const alternatives = sequelize.import("./../../models/alaternatives.js")
+const questions = sequelize.import("./../../models/questions.js")
 
 module.exports = () => {
     return {
@@ -33,6 +35,27 @@ module.exports = () => {
             Challenger.findAll().then((challengers) => {
                 res.status(200).json(challengers)
             })
+        },
+
+        deleteChallenger: (req, res) => {
+            const id = req.params.id
+
+            //delete alternativas
+            Challenger.destroy({
+                where: {
+                    id: id
+                }
+            })
+
+            res.status(200).end()
+
+
+            //deleta questões
+
+
+            //delete desafio
+
+
         }
     }
 }
