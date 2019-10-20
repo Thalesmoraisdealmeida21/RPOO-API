@@ -17,9 +17,20 @@ module.exports = (router) => {
     router.get("/challengers/all", (req, res) => {
         Challenger.ToListGlobal(req, res)
     })
-
+    router.get("/challenger/questao/primeira/:challenger", (req, res) => {
+        Challenger.getFirstQuestion(req, res);
+    })
 
     router.delete("/challengers/delete/:id", (req, res) => {
         Challenger.deleteChallenger(req, res)
     })
+    router.get("/challengers/questao/alternativas/:id", (req, res) => {
+        Challenger.getAlternatives(req, res)
+    })
+    router.get("/challengers/questao/:id/:challenger", (req, res) => {
+        Challenger.getQuestion(req, res)
+    })
+
+
+
 }

@@ -89,6 +89,19 @@ module.exports = () => {
             question.findAll({ where: { challenger: id } }).then((questions) => {
                 res.status(200).json(questions)
             })
+        },
+
+        getAlternatives: (req, res) => {
+            const id = req.params.id;
+
+            alternatives.findAll({
+                where: {
+                    question: id
+                }
+            }).then((alternatives) => {
+                res.status(200).json(alternatives)
+            })
+
         }
     }
 }

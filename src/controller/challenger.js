@@ -1,6 +1,6 @@
 const sequelize = require("./../../models/index").sequelize;
 const Challenger = sequelize.import("./../../models/challenger")
-const alternatives = sequelize.import("./../../models/alaternatives.js")
+const alternatives = sequelize.import("./../../models/alaternatives")
 const questions = sequelize.import("./../../models/questions.js")
 const Op = sequelize.Op;
 
@@ -75,6 +75,50 @@ module.exports = () => {
             }).then((challengers) => {
                 res.status(200).json(challengers)
             })
+        },
+
+        getQuestion: (req, res) => {
+            const Challenger = req.params.challenger
+            const question = req.params.id
+
+            questions.findOne({
+                where: {
+                    challenger: Challenger,
+                    id: question
+                }
+            }).then((question) => {
+                res.status(200).json(question)
+            })
+
+        },
+
+        getAlternatives: (req, res) => {
+
+            const question = req.params.id
+
+            alternatives.findAll({
+                where: {
+                    question: question
+                }
+            }).then((dataResult) => {
+                res.status(200).json(dataResult)
+            })
+
+        },
+
+        getFirstQuestion: (req, res) => {
+            const challenger = req.params.challenger;
+
+            questions.min('id', {
+                where: {
+                    challenger: challenger
+                }
+            }).then((firstQuestion) => {
+                res.status(200).json(firstQuestion);
+            })
+
         }
+
+
     }
 }

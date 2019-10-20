@@ -14,8 +14,8 @@ module.exports = (router) => {
     })
 
 
-    router.post("/questions", (req, res) => {
-
+    router.get("/questions/alternatives/:id", (req, res) => {
+        Question.getAlternatives(req, res);
     })
 
     router.get("/questions/challenger/:id", (req, res) => {
