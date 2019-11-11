@@ -9,36 +9,42 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             username: {
+                allowNull: true,
                 type: Sequelize.STRING
             },
             password: {
+                allowNull: true,
                 type: Sequelize.STRING
             },
             level: {
+                allowNull: true,
                 type: Sequelize.INTEGER
             },
             email: {
+                allowNull: true,
                 type: Sequelize.STRING
             },
             status: {
+                allowNull: true,
                 type: Sequelize.BOOLEAN
             },
             token: {
                 type: Sequelize.STRING
             },
             bio: {
+                allowNull: true,
                 type: Sequelize.STRING
             },
             createdAt: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.DATE
             },
             updatedAt: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.DATE
             },
             experience: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.INTEGER
             },
             position: {
