@@ -1,19 +1,25 @@
 {
     "development": {
             "username": "postgres",  
-            "password": "bFxA7sr10Naf1htO",  
+            "password": "1234",  
             "database": "db_api_rpg",  
-           " host": "35.222.248.99",  
+            "host": "35.222.248.99",  
             "dialect": "postgres"
             
     },
-
-    "production": {
-        "username": "postgres",
-        "password": "bFxA7sr10Naf1htO",
-        "database": "db_api_rpg",
-        "host": "35.222.248.99",
-        "dialect": "postgres",
+    "test": {
+        "username": "root",
+        "password": null,
+        "database": "database_test",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
         "operatorsAliases": false
+    },
+    "production": {
+        "username": "postgres",  
+        "password": "1234",  
+        "database": "db_api_rpg",  
+        "host": "35.222.248.99",  
+        "dialect": "postgres"
     }
 }
