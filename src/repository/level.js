@@ -1,21 +1,22 @@
 const sequelize = require("./../../models/index").sequelize
 const userskil = sequelize.import("./../../models/userskil");
 const userModel = sequelize.import("./../../models/user");
+const scoreModel = sequelize.import("./../../models/score");
+const questionModel = sequelize.import("./../../models/questions")
+const User = sequelize.import("./../../models/user")
+const skilModel = sequelize.import("./../../models/skil")
+const Op = sequelize.Op;
 
 const checkLevel = (skil) => {
     let lvlUp = 0;
     const levels = [
 
         { exp: 0, lvl: 1 },
-        { exp: 100, lvl: 2 },
-        { exp: 200, lvl: 3 },
-        { exp: 400, lvl: 4 },
-        { exp: 800, lvl: 5 },
-        { exp: 1500, lvl: 6 },
-        { exp: 2600, lvl: 7 },
-        { exp: 4200, lvl: 8 },
-        { exp: 6400, lvl: 9 },
-        { exp: 9300, lvl: 10 },
+        { exp: 50, lvl: 2 },
+        { exp: 100, lvl: 3 },
+        { exp: 200, lvl: 4 },
+        { exp: 500, lvl: 5 },
+
 
     ]
 
@@ -38,16 +39,10 @@ const UpdateLevelUser = (user) => {
     const levels = [
 
         { exp: 0, lvl: 1 },
-        { exp: 100, lvl: 2 },
-        { exp: 200, lvl: 3 },
-        { exp: 400, lvl: 4 },
-        { exp: 800, lvl: 5 },
-        { exp: 1500, lvl: 6 },
-        { exp: 2600, lvl: 7 },
-        { exp: 4200, lvl: 8 },
-        { exp: 6400, lvl: 9 },
-        { exp: 9300, lvl: 10 },
-
+        { exp: 50, lvl: 2 },
+        { exp: 100, lvl: 3 },
+        { exp: 200, lvl: 4 },
+        { exp: 500, lvl: 5 },
     ]
 
 
@@ -95,16 +90,90 @@ const checkLevelUser = (user) => {
                 id: user.id
             }
         })
+    })
+}
 
-
-
-
+const setScore = (habilidade, question, user, exp) =>{
+    console.log("seta score")
+    scoreModel.create({
+        user: user,
+        question: question,
+        punctuation: exp,
+        habilidade: habilidade,
+        hit: "S"
     })
 
+}
 
+const setExperience = (skil, user, challenger) => {
+    var questions = [];
+
+
+
+    questionModel.findAll({where: {
+        challenger: challenger
+    }}).then((quests)=>{
+
+        quests.forEach((quest)=>{
+            questions.push(quest.id)
+        })
+       
+
+        scoreModel.findAll({where: {
+            user: user,
+            habilidade: skil
+               
+               
+            
+        }}).then((scores)=> {
+            var total = 0;
+           /* scores.forEach((scr)=>{
+               console.log(scr.punctuation)
+            })*/
+           
+          
+            scores.forEach((scr)=>{
+                total = total + scr.punctuation
+            })
+           userskil.update({
+                experience: total
+            }, {
+                where: {
+                    idskil: skil,
+                    iduser: user
+                }
+            })
+    
+        })
+     
+    })
+
+    userObject = {
+        id: user
+    }
+    
+}
+
+
+const checkRankingPosition = () => {
+   User.findAll({order: [['experience', 'DESC']]}).then((ranking)=> {
+        var i = 1;
+        ranking.forEach((user)=>{
+        
+                User.update({
+                    position: i
+                }, {
+                    where: {
+                        id: user.id
+                    }
+                })
+            
+
+            i++;
+        })
+    })
 
 
 }
 
-
-module.exports = { checkLevel, checkLevelUser, UpdateLevelUser }
+module.exports = { checkRankingPosition, checkLevel, checkLevelUser, UpdateLevelUser, setScore, setExperience }

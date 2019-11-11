@@ -1,12 +1,14 @@
 {
     "development": {
-        "username": "thales",
-        "password": "password",
-        "database": "db_api_rpg",
-        "host": "127.0.0.1",
-        "dialect": "mysql",
-        "operatorsAliases": false
+       "username": "hpeylrkkyicygx",  
+            "password": "523acc5f32286765f39822b4d1727a24e3db74384467be906f28812452141596",  
+            "database": "df01kkohh7jms8",  
+           " host": "ec2-54-225-115-177.compute-1.amazonaws.com",  
+            "dialect": "postgres",
+            "port": "5432"
     },
+
+    
     "test": {
         "username": "root",
         "password": null,

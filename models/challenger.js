@@ -6,11 +6,15 @@ module.exports = (sequelize, DataTypes) => {
         level: DataTypes.INTEGER,
         group: DataTypes.INTEGER,
         userAdmin: DataTypes.INTEGER,
-        experience: DataTypes.INTEGER
+        difficulty: DataTypes.ENUM('h', 'e', 'm')
 
     }, {});
     challenger.associate = function(models) {
-        // associations can be defined here
+        challenger.belongsToMany(models.skil, {
+            through: "skilschallengers", 
+            as: "skils",
+            foreignKey: "challengerId"
+        })
     };
     return challenger;
 };

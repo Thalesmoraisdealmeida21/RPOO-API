@@ -40,7 +40,10 @@ module.exports = {
             experience: {
                 allowNull: false,
                 type: Sequelize.INTEGER
-
+            },
+            position: {
+                allowNull: true,
+                type: Sequelize.INTEGER
             }
         });
     },

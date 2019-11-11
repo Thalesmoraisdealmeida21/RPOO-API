@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         experience: DataTypes.INTEGER
     }, {});
     userskil.associate = function(models) {
-        // associations can be defined here
+      
     };
     return userskil;
 };

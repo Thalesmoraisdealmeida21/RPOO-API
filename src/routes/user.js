@@ -7,6 +7,10 @@ module.exports = (router) => {
         User.createUser(req, res)
     })
 
+    router.post("/user/update/:id", (req, res) => {
+        User.updateData(req, res);
+    })
+
     router.post("/status/:id", (req, res) => {
         User.getStatus(req, res);
     })

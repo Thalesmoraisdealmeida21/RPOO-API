@@ -15,13 +15,16 @@ module.exports = () => {
                     three: req.body.question.alternatives.three,
                     four: req.body.question.alternatives.four
                 },
+
+                habilidade: req.body.question.habilidade,
                 correct: req.body.correct
             }
 
             console.log(data)
             question.create({
                 name: data.name,
-                challenger: Challenger
+                challenger: Challenger,
+                habilidade: data.habilidade
             }).then((question) => {
                 alternatives.create({
                     name: data.alternatives.one.name,

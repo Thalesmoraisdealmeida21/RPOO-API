@@ -4,15 +4,27 @@ const Challenger = challenger();
 module.exports = (router) => {
 
 
+    router.get("/challengers", (req, res) => {
+        Challenger.ToList(req, res)
+    })
+
+    router.get("/challenger/:id", (req, res) => {
+        Challenger.getChallenger(req, res)
+    })
+
+    router.post("/challengers/end", (req, res) => {
+        Challenger.finishChallenger(req, res);
+    })
 
     router.post("/challenger/create", (req, res) => {
         Challenger.create(req, res)
     })
 
-
-    router.get("/challengers", (req, res) => {
-        Challenger.ToList(req, res)
+    router.post("/challenger/check", (req, res)=>{
+        Challenger.saveScore(req, res)
     })
+
+   
 
     router.get("/challengers/all", (req, res) => {
         Challenger.ToListGlobal(req, res)

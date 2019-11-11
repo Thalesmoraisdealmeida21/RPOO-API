@@ -10,6 +10,7 @@ require("./auth")(router)
 require("./group")(router)
 require("./challenger")(router)
 require("./question")(router)
+require("./ranking")(router)
 
 router.get("/", (req, res) => {
     res.json("Rota Funcionando")

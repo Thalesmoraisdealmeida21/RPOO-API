@@ -1,12 +1,12 @@
 module.exports = {
     development: {
-
-        host: 'localhost',
+   
+        host: '35.184.122.235',
         secret: '1C3C7E1694F1E9DAD939399E87E5FFB5DF06B2327CA31B409CB3',
         dialect: 'mysql',
         username: "thales",
-        password: "password",
-        database: "db_api_rpg",
+        password: "",
+        database: "api-rpg",
 
     },
     production: {

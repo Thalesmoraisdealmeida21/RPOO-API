@@ -82,10 +82,15 @@ module.exports = () => {
 
         getSkilUser: (req, res) => {
             const ID = req.params.id;
+            const sql = "SELECT idskil, skils.name, userskils.experience, userskils.level FROM userskils, skils WHERE iduser = " + ID + " and skils.id = userskils.idskil"
 
-            userSkil.findAll({ where: { iduser: ID } }).then((skilsUser) => {
-                res.status(200).json(skilsUser).end();
+            sequelize.query(sql).then((skils)=>{
+                res.status(200).json(skils[0])
             })
+
+  
+
+
 
         }
 

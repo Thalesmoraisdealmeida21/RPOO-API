@@ -28,8 +28,9 @@ module.exports = {
                     key: "id"
                 }
             },
-            experience: {
-                type: Sequelize.INTEGER
+            difficulty: {
+                type: Sequelize.ENUM('h', 'e', 'm'),
+                allowNull: true,
             },
             createdAt: {
                 allowNull: false,

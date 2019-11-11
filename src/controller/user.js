@@ -2,6 +2,7 @@ const sequelize = require("./../../models/index").sequelize;
 const User = sequelize.import("./../../models/user")
 const skils = sequelize.import("./../../models/userskil")
 const skil = sequelize.import("./../../models/skil")
+const {checkRankingPosition} = require("./../repository/level")
 
 
 module.exports = () => {
@@ -29,6 +30,8 @@ module.exports = () => {
             var lastID;
             var skiles;
 
+            
+
             //valida usuario
             User.findOne({ where: { username: data.username } }).then(user => {
 
@@ -41,6 +44,7 @@ module.exports = () => {
                         password: data.password,
                         email: data.email,
                         level: 1
+
 
                     }).then((user) => {
                         skil.findAll().then((skilAll) => {
@@ -62,6 +66,7 @@ module.exports = () => {
 
                         })
                     }).then(() => {
+                        checkRankingPosition();
                         res.status(200).json(true)
                     })
                 }
@@ -134,6 +139,31 @@ module.exports = () => {
             User.update({ status: true }, { where: { id: id } })
             res.end();
         },
+
+        updateData: (req, res)=> {
+
+            const id = req.params.id
+            const data = { 
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
+            }
+
+
+            User.update({
+                username: data.username,
+                email: data.email,
+                password: data.password
+            }, {
+                where: {
+                    id: id
+                }
+            })
+
+            res.status(200).json({msg: "Sucesso"})
+
+
+        }
 
 
 
