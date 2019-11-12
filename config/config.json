@@ -16,10 +16,10 @@
         "operatorsAliases": false
     },
     "production": {
-        "username": "postgres",  
-        "password": "1234",  
-        "database": "db_api_rpg",  
-        "host": "35.222.248.99",  
-        "dialect": "postgres"
+        "username": "thalesmoras",  
+        "password": "ta211097",  
+        "database": "thalesmoras",  
+        "host": "mysql.thalesmoras.kinghost.net",  
+        "dialect": "mysql"
     }
 }
