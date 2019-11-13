@@ -135,7 +135,9 @@ const setExperience = (skil, user, challenger) => {
             scores.forEach((scr)=>{
                 total = total + scr.punctuation
             })
-           userskil.update({
+            totalHabilidade = total;
+
+            userskil.update({
                 experience: total
             }, {
                 where: {
@@ -143,8 +145,14 @@ const setExperience = (skil, user, challenger) => {
                     iduser: user
                 }
             })
+
+           
+
+           
     
         })
+
+      
      
     })
 

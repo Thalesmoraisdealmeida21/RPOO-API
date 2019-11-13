@@ -174,10 +174,14 @@ module.exports = () => {
             
             checkRankingPosition();
 
+        
             setExperience(1, user, challenger)
             setExperience(2, user, challenger)
             setExperience(3, user, challenger)
             setExperience(4, user, challenger)
+           
+
+           
 
             userskil.findOne({ where: { idskil: skil, iduser: user } }).then((skilAfter) => {
                 checkLevel(skilAfter)
