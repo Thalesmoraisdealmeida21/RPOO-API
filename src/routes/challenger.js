@@ -8,6 +8,25 @@ module.exports = (router) => {
         Challenger.ToList(req, res)
     })
 
+    router.post("/challengers/correctquestion", (req, res) => {
+        Challenger.saveScoreObjectiveCorrect(req, res)
+    })
+    router.get("/challenger/answers/:challengerid/:userid", (req, res)=> {
+        Challenger.getAnswerForUser(req, res)
+    })
+
+    router.get("/challengers/solved/:id", (req, res) => {
+        Challenger.getUsersAnswerChallenger(req, res)
+    })
+
+    router.get("/challengers/descritivos", (req, res) => {
+        Challenger.getChallengerDescritives(req, res)
+    })
+
+    router.post("/challenger/question/answer", (req, res)=>{
+                Challenger.saveAnswer(req, res);
+    })
+
     router.get("/challenger/:id", (req, res) => {
         Challenger.getChallenger(req, res)
     })

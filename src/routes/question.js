@@ -8,6 +8,10 @@ module.exports = (router) => {
         Question.create(req, res)
     })
 
+    router.get("/question/find/:id", (req, res) => {
+        Question.findQuestion(req, res)
+    })
+
 
     router.post("/question/addalternatives/:id", (req, res) => {
         Question.addAlternatives(req, res)

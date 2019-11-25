@@ -5,6 +5,8 @@ const questions = sequelize.import("./../../models/questions.js")
 const skilModel = sequelize.import("./../../models/skil")
 const userskil = sequelize.import("./../../models/userskil")
 const scorev = sequelize.import("./../../models/score");
+const answerModel = sequelize.import("./../../models/answers")
+
 const {checkRankingPosition, setScore, setExperience, checkLevel, checkLevelUser,UpdateLevelUser} = require("./../repository/level")
 const Op = sequelize.Op;
 const User = sequelize.import("./../../models/user");
@@ -36,7 +38,8 @@ module.exports = () => {
                 type: 1,
                 user: req.body.user,
                 experience: req.body.experience,
-                difficulty: dif
+                difficulty: dif,
+                typeChallenger: req.body.type
                 
             }
 
@@ -47,7 +50,8 @@ module.exports = () => {
                     group: null,
                     userAdmin: data.user,
                     experience: data.experience,
-                    difficulty: data.difficulty
+                    difficulty: data.difficulty,
+                    type: data.typeChallenger
                 }).then((challenger) => {
                     res.status(200).json(challenger.id)
                 })
@@ -165,6 +169,28 @@ module.exports = () => {
               })
         },
 
+        saveScoreObjectiveCorrect: (req, res)=>{
+            const question = req.body.question;
+         
+            const exp = req.body.experience;
+            const user = req.body.user;
+            const habilidade = req.body.skil
+            const answerID = req.body.answerID
+            
+
+            setScore(habilidade, question, user, exp);
+
+            answerModel.update({
+                corrected: true
+            }, {
+                where: {
+                    id: answerID
+                }
+            })
+
+            res.status(200).json("sucesso")
+        },
+
 
         finishChallenger: (req, res)=>{
             const challenger = req.body.challenger;
@@ -207,7 +233,56 @@ module.exports = () => {
             Challenger.findOne({where: { id: req.params.id}}).then((challenger)=>{
                 res.status(200).json(challenger)
             })
+        },
+
+        saveAnswer: (req, res)=> {
+            const data = {
+                iduser: req.body.iduser,
+                idquestion: req.body.idquestion,
+                answer: req.body.answer
+            }
+
+            answerModel.create({
+                iduser: data.iduser,
+                idquestion: data.idquestion,
+                answer: data.answer,
+              
+            })
+
+            res.status(200).json({"msg": "sucesso"})
+        },
+        
+        
+        getChallengerDescritives: (req, res) => {
+            Challenger.findAll({where: {
+                type: "Descritivo"
+            }}).then((challengers)=>{
+                res.status(200).json(challengers);
+            })
+        },
+
+
+        getUsersAnswerChallenger: (req, res) => {
+            const challenger = req.params.id
+            const sql = "SELECT username, id from Users WHERE id in (SELECT iduser FROM answers WHERE idquestion in (SELECT id FROM questions WHERE challenger = "+ req.params.id +" ))"
+
+            sequelize.query(sql).then((alunos)=>{
+                res.status(200).json(alunos[0])
+            })
+        },
+
+        getAnswerForUser: (req, res) => {
+             const idUser = req.params.userid 
+             const idChallenger = req.params.challengerid
+
+             const sql = "SELECT answers.id as answerID, answers.answer, questions.name, questions.id, corrected from answers, questions  WHERE idquestion =  questions.id  and iduser = " + idUser + " and idquestion in (select id from questions where questions.challenger =" + idChallenger + ")"
+            sequelize.query(sql).then((resul)=>{
+                res.status(200).json(resul[0])
+            })
+
         }
+
+
 
         
 

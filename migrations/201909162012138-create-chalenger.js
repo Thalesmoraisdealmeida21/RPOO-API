@@ -14,6 +14,9 @@ module.exports = {
             level: {
                 type: Sequelize.STRING
             },
+            type: {
+                type: Sequelize.STRING
+            },
             group: {
                 type: Sequelize.INTEGER,
                 references: {

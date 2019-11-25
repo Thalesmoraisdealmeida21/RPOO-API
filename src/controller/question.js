@@ -105,6 +105,14 @@ module.exports = () => {
                 res.status(200).json(alternatives)
             })
 
+        },
+        findQuestion: (req, res)=> {
+
+            question.findOne({where: {
+                id: req.params.id
+            }}).then((questionFinded)=>{
+                res.status(200).json(questionFinded);
+            })
         }
     }
 }

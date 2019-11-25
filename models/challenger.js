@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         level: DataTypes.INTEGER,
         group: DataTypes.INTEGER,
         userAdmin: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         difficulty: DataTypes.ENUM('h', 'e', 'm')
 
     }, {});
